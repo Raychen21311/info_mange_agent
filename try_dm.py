@@ -45,12 +45,7 @@ faiss_load_time = time.perf_counter() - start
 st.write(f"✅ FAISS 載入耗時: {faiss_load_time:.2f} 秒")
 
 
-# 載入 documents
-start = time.perf_counter()
-with open("documents.pkl", "rb") as f:
-    documents = pickle.load(f)
-docs_load_time = time.perf_counter() - start
-st.write(f"✅ documents 載入耗時: {docs_load_time:.2f} 秒")
+
 
 
 # --- RAG 檢索 ---
