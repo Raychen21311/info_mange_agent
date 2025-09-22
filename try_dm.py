@@ -21,6 +21,7 @@ load_dotenv()
 if os.getenv('GOOGLE_API_KEY'):
     genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 gen_model = genai.GenerativeModel("gemini-2.5-flash")
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # --- 向量模型 ---
 embedding_model = HuggingFaceEmbeddings(
