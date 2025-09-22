@@ -170,7 +170,7 @@ with st.form("chat_form", clear_on_submit=True):
             accept_multiple_files=True
         )
         if uploaded_files:
-        for uploaded_file in uploaded_files:  # ✅ 迭代每個檔案
+            for uploaded_file in uploaded_files:  # ✅ 迭代每個檔案
             ext = uploaded_file.name.lower().split(".")[-1]
             file_text = ""
 
