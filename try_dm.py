@@ -29,8 +29,9 @@ embedding_model = HuggingFaceEmbeddings(
 
 # --- 建立向量資料庫 (FAISS) ---
 start = time.perf_counter()
-vector_store = FAISS.load_local("faiss_path",
-                                embedding_model, allow_dangerous_deserialization=True)
+
+INDEX_FILE_PATH = "faiss_path"
+vector_store = FAISS.load_local(INDEX_FILE_PATH, embeddings=HuggingFaceEmbeddings(), allow_dangerous_deserialization=True)
 faiss_load_time = time.perf_counter() - start
 st.write(f"✅ FAISS 載入耗時: {faiss_load_time:.2f} 秒")
 
