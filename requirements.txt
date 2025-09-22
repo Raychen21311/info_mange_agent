@@ -24,9 +24,10 @@ langchain
 
 # LangChain 社群套件 (HuggingFaceEmbeddings)
 langchain-community
-
+langchain_huggingface
 # HuggingFace sentence transformers
 sentence-transformers
 
 # dotenv (環境變數)
 python-dotenv
+
