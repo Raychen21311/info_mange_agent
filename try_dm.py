@@ -171,36 +171,36 @@ with st.form("chat_form", clear_on_submit=True):
         )
         if uploaded_files:
             for uploaded_file in uploaded_files:  # ✅ 迭代每個檔案
-            ext = uploaded_file.name.lower().split(".")[-1]
-            file_text = ""
+                ext = uploaded_file.name.lower().split(".")[-1]
+                file_text = ""
 
-            if ext == "pdf":
-                pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
-                for page in pdf_document:
-                    file_text += page.get_text() + "\n\n"
+                if ext == "pdf":
+                    pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+                    for page in pdf_document:
+                        file_text += page.get_text() + "\n\n"
 
-            elif ext in ["docx", "doc"]:
-                doc = DocxDocument(uploaded_file)
-                file_text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
+                elif ext in ["docx", "doc"]:
+                    doc = DocxDocument(uploaded_file)
+                    file_text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
 
-            elif ext == "txt":
-                file_text = uploaded_file.read().decode("utf-8")
+                elif ext == "txt":
+                    file_text = uploaded_file.read().decode("utf-8")
 
-            elif ext in ["xls", "xlsx"]:
-                df = pd.read_excel(uploaded_file)
-                file_text = df.to_csv(index=False)
+                elif ext in ["xls", "xlsx"]:
+                    df = pd.read_excel(uploaded_file)
+                    file_text = df.to_csv(index=False)
 
-            elif ext in ["ppt", "pptx"]:
-                prs = Presentation(uploaded_file)
-                for slide in prs.slides:
-                    for shape in slide.shapes:
-                        if hasattr(shape, "text"):
-                            file_text += shape.text + "\n"
+                elif ext in ["ppt", "pptx"]:
+                    prs = Presentation(uploaded_file)
+                    for slide in prs.slides:
+                        for shape in slide.shapes:
+                            if hasattr(shape, "text"):
+                                file_text += shape.text + "\n"
             
             
             
-            st.session_state.user_file_text = file_text
-            st.success(f"{uploaded_file.name} 已成功讀取")
+                st.session_state.user_file_text = file_text
+                st.success(f"{uploaded_file.name} 已成功讀取")
   
 
 
