@@ -12,12 +12,12 @@ sentence-transformers
 openpyxl
 PyPDF2
 python-pptx 
-docx
 pickle
 fitz
 time
 os
 langchain-community
+
 
 
 
