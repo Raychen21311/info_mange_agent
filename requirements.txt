@@ -11,4 +11,12 @@ pillow
 python-dotenv
 sentence-transformers
 openpyxl
-
+PyPDF2
+pptx 
+langchain_huggingface
+langchain.docstore.document
+docx
+pickle
+fitz
+time
+os
