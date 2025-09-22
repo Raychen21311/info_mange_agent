@@ -9,9 +9,9 @@ from langchain.docstore.document import Document
 
 
     
-from docx import Document as DocxDocument
+from python-docx import Document as DocxDocument
 import pandas as pd
-from pptx import Presentation
+from python-pptx import Presentation
 from PyPDF2 import PdfReader
 
 
