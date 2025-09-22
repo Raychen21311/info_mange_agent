@@ -18,8 +18,9 @@ from PyPDF2 import PdfReader
 
 
 # --- Gemini 設定 ---
-GOOGLE_API_KEY = "AIzaSyDUYOXI8HQPJ4IsxaWzLoilwYwQw6Uq4Dg"
-genai.configure(api_key=GOOGLE_API_KEY)
+load_dotenv()
+if os.getenv('GOOGLE_API_KEY'):
+    genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 gen_model = genai.GenerativeModel("gemini-2.5-flash")
 
 # --- 向量模型 ---
