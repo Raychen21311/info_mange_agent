@@ -1,17 +1,32 @@
-streamlit
-pymupdf
-google-generativeai
-langchain
-langchain-community
-sentence-transformers
-python-docx
+# Streamlit
+streamlit==1.49.1
+
+# Python-pptx (處理 PowerPoint)
 python-pptx
-PyPDF2
+
+# python-docx (處理 Word)
+python-docx
+
+# pandas
 pandas
+
+# PyPDF2 (處理 PDF)
+PyPDF2
+
+# PyMuPDF / fitz (處理 PDF)
+PyMuPDF
+
+# Google Generative AI SDK
+google-generativeai
+
+# LangChain 核心
+langchain
+
+# LangChain 社群套件 (HuggingFaceEmbeddings)
+langchain-community
+
+# HuggingFace sentence transformers
+sentence-transformers
+
+# dotenv (環境變數)
 python-dotenv
-
-
-
-
-
-
