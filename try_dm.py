@@ -24,7 +24,9 @@ gen_model = genai.GenerativeModel("gemini-2.5-flash")
 
 # --- 向量模型 ---
 embedding_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-mpnet-base-v2")
+    model_name="sentence-transformers/all-mpnet-base-v2",
+    model_kwargs={"device": device}  # ✅ 指定設備
+)
 # --- 文件讀取與切段落（核心知識庫） ---
 
 # --- 建立向量資料庫 (FAISS) ---
