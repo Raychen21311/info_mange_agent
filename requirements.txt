@@ -3,7 +3,6 @@ pymupdf
 google-generativeai
 pandas
 faiss-cpu
-langchain-community
 python-docx
 ollama
 google-cloud-vision
@@ -13,10 +12,10 @@ sentence-transformers
 openpyxl
 PyPDF2
 pptx 
-langchain.docstore.document
 docx
 pickle
 fitz
 time
 os
+
 
