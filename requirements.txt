@@ -17,5 +17,6 @@ pickle
 fitz
 time
 os
+langchain-community
 
 
