@@ -1,22 +1,15 @@
 streamlit
 pymupdf
 google-generativeai
-pandas
-faiss-cpu
-python-docx
-ollama
-google-cloud-vision
-pillow
-python-dotenv
-sentence-transformers
-openpyxl
-PyPDF2
-python-pptx 
-pickle
-fitz
-time
-os
+langchain
 langchain-community
+sentence-transformers
+python-docx
+python-pptx
+PyPDF2
+pandas
+
+
 
 
 
