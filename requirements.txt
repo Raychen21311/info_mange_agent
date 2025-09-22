@@ -11,12 +11,13 @@ python-dotenv
 sentence-transformers
 openpyxl
 PyPDF2
-pptx 
+python-pptx 
 docx
 pickle
 fitz
 time
 os
 langchain-community
+
 
 
