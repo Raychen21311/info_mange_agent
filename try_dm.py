@@ -7,7 +7,7 @@ import pickle
 from langchain_community.vectorstores import FAISS
 from langchain.docstore.document import Document
 from dotenv import load_dotenv
-
+from langchain_huggingface import HuggingFaceEmbeddings
     
 from docx import Document as DocxDocument
 import pandas as pd
