@@ -162,30 +162,34 @@ with st.form("chat_form", clear_on_submit=True):
 
     # 上傳檔案
     with cols[0]:
-        uploaded_file = st.file_uploader(
+        uploaded_files = st.file_uploader(
             "📄 文件",
             type=["pdf", "docx","doc","txt","xls","xlsx","ppt","pptx"],
             key="file_uploader",
             label_visibility="collapsed",
             accept_multiple_files=True
         )
-        if uploaded_file:
+        if uploaded_files:
+        for uploaded_file in uploaded_files:  # ✅ 迭代每個檔案
             ext = uploaded_file.name.lower().split(".")[-1]
             file_text = ""
+
             if ext == "pdf":
                 pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
                 for page in pdf_document:
                     file_text += page.get_text() + "\n\n"
+
             elif ext in ["docx", "doc"]:
                 doc = DocxDocument(uploaded_file)
                 file_text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
+
             elif ext == "txt":
                 file_text = uploaded_file.read().decode("utf-8")
 
             elif ext in ["xls", "xlsx"]:
                 df = pd.read_excel(uploaded_file)
-                file_text = df.to_csv(index=False)  # 轉成文字
-            
+                file_text = df.to_csv(index=False)
+
             elif ext in ["ppt", "pptx"]:
                 prs = Presentation(uploaded_file)
                 for slide in prs.slides:
