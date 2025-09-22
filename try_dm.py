@@ -6,7 +6,7 @@ import google.generativeai as genai
 import pickle
 from langchain_community.vectorstores import FAISS
 from langchain.docstore.document import Document
-
+from dotenv import load_dotenv
 
     
 from docx import Document as DocxDocument
