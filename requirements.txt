@@ -30,4 +30,5 @@ sentence-transformers
 
 # dotenv (環境變數)
 python-dotenv
+torch
 
