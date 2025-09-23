@@ -101,7 +101,7 @@ def get_gemini_response(user_question, context_text, history):
         history_text += f"{role}: {msg}\n"
 
     prompt = f"""
-你是一位{role}等相關回覆。  
+你是一位{prompt_info}
 
 你的回答需嚴謹、客觀，應依據核心知識庫提供的內容。
 若有使用者上傳附件，請一併解讀使用者上傳的附件內容。
