@@ -30,7 +30,7 @@ embedding_model = HuggingFaceEmbeddings(
 )
 # --- 文件讀取與切段落（核心知識庫） ---
 
-# --- 建立向量資料庫 (FAISS) ---
+# --- 建立向量資料庫 (FAISS) ---# --- 建立向量資料庫 (FAISS) ---
 start = time.perf_counter()
 
 script_dir = os.path.dirname(__file__)
