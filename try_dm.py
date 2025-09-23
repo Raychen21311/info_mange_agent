@@ -50,5 +50,4 @@ current_dir = Path(__file__).resolve().parent
 print(current_dir)
 # 列出該資料夾所有檔案與子資料夾
 for item in current_dir.iterdir():
-    st.markdown(current_dir)
-    st.markdown(str(current_dir))
+    st.markdown(item)
