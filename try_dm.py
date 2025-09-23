@@ -30,19 +30,73 @@ embedding_model = HuggingFaceEmbeddings(
 )
 # --- 文件讀取與切段落（核心知識庫） ---
 
-# --- 建立向量資料庫 (FAISS) ---# --- 建立向量資料庫 (FAISS) ---
+
+# --- 建立向量資料庫 (FAISS) — AES‑GCM 解密 + 遞迴尋找索引目錄 ---
+from pathlib import Path
+import io, zipfile, tempfile, base64, time
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from langchain_community.vectorstores import FAISS
+
 start = time.perf_counter()
 
-script_dir = os.path.dirname(__file__)
-faiss_path = os.path.join(script_dir, "faiss_path")
+script_dir = Path(__file__).resolve().parent
+enc_path   = script_dir / "faiss_index.enc"   # 加密後的索引檔
+faiss_dir  = script_dir / "faiss_path"        # 未加密資料夾（僅本機除錯用）
 
-vector_store = FAISS.load_local(
-    faiss_path,
-    embedding_model,
-    allow_dangerous_deserialization=True
-)
-faiss_load_time = time.perf_counter() - start
-st.write(f"✅ FAISS 載入耗時: {faiss_load_time:.2f} 秒")
+def _decrypt_bytes(blob: bytes, key_b64: str) -> bytes:
+    key = base64.urlsafe_b64decode(key_b64)   # 32 bytes -> AES‑256‑GCM
+    nonce, ct = blob[:12], blob[12:]
+    return AESGCM(key).decrypt(nonce, ct, associated_data=None)
+
+def _find_faiss_base_dir(root: Path) -> Path:
+    """在 root 下遞迴尋找同時含有 index.faiss 與 index.pkl 的目錄。"""
+    for p in root.rglob("index.faiss"):
+        cand = p.parent
+        if (cand / "index.pkl").exists():
+            return cand
+    raise FileNotFoundError("在解壓後的內容中找不到 index.faiss / index.pkl")
+
+try:
+    if enc_path.exists():
+        with open(enc_path, "rb") as f:
+            blob = f.read()
+        key_b64 = st.secrets["FAISS_KEY_B64"]  # 請先在 Secrets 設定
+        zip_bytes = _decrypt_bytes(blob, key_b64)
+
+        tmp_dir = Path(tempfile.mkdtemp(prefix="faiss_"))
+        with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
+            zf.extractall(tmp_dir)
+
+        # ✅ 自動找出真正包含 index.faiss / index.pkl 的資料夾
+        base_dir = _find_faiss_base_dir(tmp_dir)
+
+        vector_store = FAISS.load_local(
+            str(base_dir),
+            embeddings=embedding_model,
+            allow_dangerous_deserialization=True
+        )
+        source = f"🔐 faiss_index.enc（解密→{base_dir.relative_to(tmp_dir)}）"
+
+    elif faiss_dir.is_dir():
+        # 僅本機除錯用；不要把未加密資料夾提交到 Git
+        vector_store = FAISS.load_local(
+            str(faiss_dir),
+            embeddings=embedding_model,
+            allow_dangerous_deserialization=True
+        )
+        source = "📂 本機未加密 faiss_path/"
+
+    else:
+        raise FileNotFoundError("找不到向量庫：請提供 faiss_index.enc 或本機 faiss_path/")
+
+    st.write(f"✅ FAISS 載入完成（{source}），耗時: {time.perf_counter() - start:.2f} 秒")
+
+except Exception as e:
+    import traceback
+    st.error(f"❌ 載入 FAISS 失敗：{e}")
+    st.caption(traceback.format_exc())
+    raise
+
 
 
 
