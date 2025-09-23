@@ -32,4 +32,5 @@ sentence-transformers
 python-dotenv
 torch
 
-faiss-gpu
+faiss-cpu
+
