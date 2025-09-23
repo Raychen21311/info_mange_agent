@@ -35,3 +35,4 @@ torch
 faiss-cpu
 pathlib
 cryptography
+pathlib 
