@@ -41,7 +41,7 @@ from langchain_community.vectorstores import FAISS
 start = time.perf_counter()
 
 # 直接指定加密檔路徑（相對於 try_dm.py）
-enc_path = Path(__file__).resolve().parent / "file_path" / "faiss_index.enc"
+enc_path = Path("file_path")
 
 def _decrypt_bytes(blob: bytes, key_b64: str) -> bytes:
     key = base64.urlsafe_b64decode(key_b64)  # 32 bytes -> AES‑256‑GCM
