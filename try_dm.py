@@ -95,11 +95,12 @@ def retrieve_context(question, top_k=3):
     return [d.page_content for d in docs]
 
 # --- Gemini 回答生成（加入歷史對話） ---
+prompt_info = st.secrets["prompt_info"]
 def get_gemini_response(user_question, context_text, history):
     history_text = ""
     for role, msg in history:
         history_text += f"{role}: {msg}\n"
-prompt_info = st.secrets["prompt_info"]
+        
     prompt = f"""
 你是一位{prompt_info}
 
