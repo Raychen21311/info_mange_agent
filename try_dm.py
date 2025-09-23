@@ -71,7 +71,7 @@ try:
             embeddings=embedding_model,
             allow_dangerous_deserialization=True
         )
-        st.write(f"✅ FAISS 載入完成（來源：{enc_path.name}），耗時: {time.perf_counter() - start:.2f} 秒")
+        st.write(f"✅ FAISS 載入完成，耗時: {time.perf_counter() - start:.2f} 秒")
     else:
         raise FileNotFoundError(f"找不到加密檔：{enc_path}")
 
