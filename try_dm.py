@@ -110,7 +110,7 @@ def get_gemini_response(user_question, context_text, history):
 針對一般民眾或非專業人士，請以淺顯易懂的方式說明專業術語和流程。  
 請避免臆測或推論未明載內容，回答時保持正式、清楚、易懂的語氣，用字遣詞依據知識庫風格。  
 可使用 Markdown 格式輸出，包含表格、標題、清單等格式化語法。
-請勿使用 HTML 標籤（例如 <li>、<ul>、<p>）。
+嚴禁透過 HTML（例如 <li>、<ul>、<p>、<br>）進行回答。
 ---對話歷史---
 {history_text}
 
