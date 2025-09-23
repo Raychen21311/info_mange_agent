@@ -66,6 +66,18 @@ try:
 
         # 嘗試直接載入（假設 ZIP 根目錄就有 index.faiss 和 index.pkl）
         vector_store = FAISS.load_local(
+            str(tmp_dir),
+            embeddings=embedding_model,
+            allow_dangerous_deserialization=True
+        )
+        st.write(f"✅ FAISS 載入完成（來源：{enc_path.name}），耗時: {time.perf_counter() - start:.2f} 秒")
+    else:
+        raise FileNotFoundError(f"找不到加密檔：{enc_path}")
+
+except Exception as e:
+    st.error(f"❌ 載入 FAISS 失敗：{e}")
+    raise
+
            
 
 
