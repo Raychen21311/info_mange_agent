@@ -52,5 +52,5 @@ print(current_dir)
 for item in current_dir.iterdir():
     print(item)
     print("hello")
-
+st.markdown(item)
 
