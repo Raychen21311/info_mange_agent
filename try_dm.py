@@ -31,7 +31,7 @@ embedding_model = HuggingFaceEmbeddings(
 # --- 文件讀取與切段落（核心知識庫） ---
 
 
-# --- 建立向量資料庫 (FAISS) — AES‑GCM 解密載入（直接指定路徑） ---
+# --- 建立向量資料庫 (FAISS) — AES‑GCM 解密 + 列出檔案清單 ---
 import io, zipfile, tempfile, base64, time
 from pathlib import Path
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -59,20 +59,14 @@ try:
         with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
             zf.extractall(tmp_dir)
 
-        # 直接載入（假設 ZIP 根目錄就有 index.faiss 和 index.pkl）
+        # ✅ 列出解壓後檔案清單（用 print）
+        print("📂 解壓後檔案清單：")
+        for p in tmp_dir.rglob("*"):
+            print(" -", p.relative_to(tmp_dir))
+
+        # 嘗試直接載入（假設 ZIP 根目錄就有 index.faiss 和 index.pkl）
         vector_store = FAISS.load_local(
-            str(tmp_dir),
-            embeddings=embedding_model,
-            allow_dangerous_deserialization=True
-        )
-        st.write(f"✅ FAISS 載入完成（來源：{enc_path.name}），耗時: {time.perf_counter() - start:.2f} 秒")
-    else:
-        raise FileNotFoundError(f"找不到加密檔：{enc_path}")
-
-except Exception as e:
-    st.error(f"❌ 載入 FAISS 失敗：{e}")
-    raise
-
+           
 
 
 
