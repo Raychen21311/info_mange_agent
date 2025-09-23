@@ -14,7 +14,7 @@ import pandas as pd
 #from pptx import Presentation
 from PyPDF2 import PdfReader
 import torch
-
+import faiss
 
 # --- Gemini 設定 ---
 load_dotenv()
