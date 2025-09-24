@@ -101,7 +101,13 @@ def get_gemini_response(user_question, context_text, history):
     for role, msg in history:
         history_text += f"{role}: {msg}\n"
         
-    prompt = prompt_info
+    prompt = 
+    prompt_info.format(
+        user_question=user_question,
+        context_text=context_text,
+        history_text=history_text
+    )
+
 
     start = time.perf_counter()
     response = gen_model.generate_content(prompt)
@@ -280,6 +286,6 @@ if submit and user_input:
     st.session_state.chat_history.append(("使用者", user_input))
     st.session_state.chat_history.append(("Agent", answer))
 
-st.write("🔐 prompt_info:", st.secrets.get("prompt_info", "❌ 沒有讀到 prompt_info"))
+st.write("🔐 prompt:", st.secrets.get("prompt_info", "❌ 沒有讀到 prompt_info"))
 
   
