@@ -102,23 +102,7 @@ def get_gemini_response(user_question, context_text, history):
         history_text += f"{role}: {msg}\n"
         
     prompt = f"""
-你是一位{prompt_info}
-
-你的回答需嚴謹、客觀，應依據核心知識庫提供的內容。
-若有使用者上傳附件，請一併解讀使用者上傳的附件內容。
-對於同一議題，回答內容需保持一致，避免前後矛盾。  
-針對一般民眾或非專業人士，請以淺顯易懂的方式說明專業術語和流程。  
-請避免臆測或推論未明載內容，回答時保持正式、清楚、易懂的語氣，用字遣詞依據知識庫風格。  
-可使用 Markdown 格式輸出，包含表格、標題、清單等格式化語法。
-嚴禁透過 HTML（例如 <li>、<ul>、<p>、<br>）進行回答。
----對話歷史---
-{history_text}
-
----核心知識庫及使用者上傳的附件內容---
-{context_text}
-
----使用者問題---
-{user_question}
+{prompt_info}
 """
     start = time.perf_counter()
     response = gen_model.generate_content(prompt)
