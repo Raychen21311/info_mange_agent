@@ -285,6 +285,5 @@ if submit and user_input:
     st.session_state.chat_history.append(("使用者", user_input))
     st.session_state.chat_history.append(("Agent", answer))
 
-st.write("🔐 prompt:", st.secrets.get("prompt_info", "❌ 沒有讀到 prompt_info"))
 
   
