@@ -102,7 +102,7 @@ def get_gemini_response(user_question, context_text, history):
         history_text += f"{role}: {msg}\n"
         
     prompt = prompt_info
-"""
+
     start = time.perf_counter()
     response = gen_model.generate_content(prompt)
     gemini_time = time.perf_counter() - start
