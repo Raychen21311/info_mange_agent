@@ -16,7 +16,8 @@ import pandas as pd
 from PyPDF2 import PdfReader
 import torch
 import faiss
-
+import requests
+from bs4 import BeautifulSoup
 # --- Gemini 設定 ---
 load_dotenv()
 if os.getenv('GOOGLE_API_KEY'):
@@ -37,8 +38,7 @@ web_urls = [
     "https://www.facebook.com/chnchng.lee.5/?locale=zh_TW"
 ]
 
-import requests
-from bs4 import BeautifulSoup
+
 
 def fetch_webpage_text(url):
     try:
