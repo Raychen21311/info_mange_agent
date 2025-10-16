@@ -97,13 +97,13 @@ def retrieve_context(question, top_k=3):
 
 # --- Gemini 回答生成（加入歷史對話） ---
 prompt_info = st.secrets["prompt_info"]
-def get_gemini_response(sources_block,user_question, context_text, history):
+def get_gemini_response(user_question, context_text, history):
     history_text = ""
     for role, msg in history:
         history_text += f"{role}: {msg}\n"
         
     prompt = prompt_info.format(
-        sources_block=sources_block,
+     
         user_question=user_question,
         context_text=context_text,
         history_text=history_text
@@ -276,7 +276,7 @@ if submit and user_input:
     if st.session_state.user_file_text:
         context_text += "\n\n---使用者上傳的附件內容---\n\n" + st.session_state.user_file_text
 
-    answer = get_gemini_response(sources_block,user_input, context_text, st.session_state.chat_history)
+    answer = get_gemini_response(user_input, context_text, st.session_state.chat_history)
 
     # 4️⃣ 將占位 spinner 替換成最終回答
     answer_placeholder.empty()  # 清除 spinner
