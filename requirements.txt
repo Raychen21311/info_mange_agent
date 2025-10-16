@@ -36,3 +36,4 @@ faiss-cpu
 pathlib
 cryptography
 pathlib 
+bs4
