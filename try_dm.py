@@ -23,12 +23,11 @@ load_dotenv()
 if os.getenv('GOOGLE_API_KEY'):
     genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 gen_model = genai.GenerativeModel("gemini-2.5-flash")
-#device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cpu"
 
 # --- 向量模型 ---
 embedding_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-mpnet-base-v2"#,
-  #  model_kwargs={"device": device}  # ✅ 指定設備
+    model_name="sentence-transformers/all-mpnet-base-v2",
 )
 # --- 文件讀取與切段落（核心知識庫） ---
 
