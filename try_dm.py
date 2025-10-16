@@ -103,6 +103,7 @@ def get_gemini_response(user_question, context_text, history):
         history_text += f"{role}: {msg}\n"
         
     prompt = prompt_info.format(
+        sources_block=sources_block
         user_question=user_question,
         context_text=context_text,
         history_text=history_text
