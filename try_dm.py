@@ -31,35 +31,7 @@ embedding_model = HuggingFaceEmbeddings(
 )
 # --- 文件讀取與切段落（核心知識庫） ---
 
-# 後台設定網址清單
-web_urls = [
-    "https://dep.mohw.gov.tw/DOIM/mp-114.html",  # 這裡換成你的實際網址
-    "https://www.facebook.com/chnchng.lee.5/?locale=zh_TW"
-]
 
-
-
-def fetch_webpage_text(url):
-    try:
-        r = requests.get(url, timeout=10)
-        r.raise_for_status()
-        soup = BeautifulSoup(r.text, "html.parser")
-        return soup.get_text(separator="\n")
-    except Exception as e:
-        return f"❌ 無法擷取 {url}：{e}"
-
-from langchain.docstore.document import Document
-
-def build_web_vector_store(urls):
-    docs = []
-    for url in urls:
-        text = fetch_webpage_text(url)
-        chunks = [text[i:i+1000] for i in range(0, len(text), 1000)]  # 切段落
-        docs.extend([Document(page_content=c) for c in chunks])
-    return FAISS.from_documents(docs, embedding_model)
-
-# 建立網頁臨時向量庫
-web_vector_store = build_web_vector_store(web_urls)
 
 # --- 建立向量資料庫 (FAISS) — AES‑GCM 解密 + 列出檔案清單 ---
 import io, zipfile, tempfile, base64, time
@@ -119,10 +91,9 @@ except Exception as e:
 def retrieve_context(question, top_k=3):
     start = time.perf_counter()
     docs = vector_store.similarity_search(question, k=top_k)
-    docs_web = web_vector_store.similarity_search(question, k=top_k)
     search_time = time.perf_counter() - start
     st.write(f"✅ 檢索耗時: {search_time:.2f} 秒")
-    return [d.page_content for d in docs + docs_web]
+    return [d.page_content for d in docs]
 
 # --- Gemini 回答生成（加入歷史對話） ---
 prompt_info = st.secrets["prompt_info"]
