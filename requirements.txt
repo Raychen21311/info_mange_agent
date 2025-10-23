@@ -37,4 +37,5 @@ pathlib
 cryptography
 pathlib 
 bs4
-Document
+langchain.docstore.document
+
